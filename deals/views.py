@@ -1,6 +1,9 @@
 from rest_framework import generics
 from .models import Post
 from .serializers import PostSerializer
+from rest_framework.permissions import IsAdminUser, DjangoModelPermissions
+
+
 
 
 class PostList(generics.ListCreateAPIView):
