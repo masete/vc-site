@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import PredictSeriesA
+# from .models import PredictSeriesA
 from .serializers import PredictSeriesASerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -44,7 +44,7 @@ def predict_series_A(request):
         response_data = {
             "statusCode": 200,
             "status": "Prediction made",
-            "result": "There are: " + str(prediction[0] * 100)
+            "result": "There are " + str(prediction[0] * 100) + "`%` chances for a startup with the above provided metrics to be successful for series A"
             # "result": "There are: " + types[prediction[0]] *100
             # (f"There is a {probability * 100:.2f}% chance that this startup will make it to Series A.")
         }
@@ -54,40 +54,40 @@ def predict_series_A(request):
         return JsonResponse({"error": "Please Enter Valid Data"}, status=400)
     
 
-@api_view(['GET', 'POST'])
-def predictSeriesA(request, format=None):
+# @api_view(['GET', 'POST'])
+# def predictSeriesA(request, format=None):
 
-    if request.method == 'GET':
-        predictions = PredictSeriesA.objects.all()
-        serializer = PredictSeriesASerializer(predictions, many=True)
-        return JsonResponse(serializer.data, safe=False)
+#     if request.method == 'GET':
+#         predictions = PredictSeriesA.objects.all()
+#         serializer = PredictSeriesASerializer(predictions, many=True)
+#         return JsonResponse(serializer.data, safe=False)
     
 
-    if request.method == 'POST':
-        serializer = PredictSeriesASerializer(data= request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     if request.method == 'POST':
+#         serializer = PredictSeriesASerializer(data= request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def predictSeriesA_detail(request, id, format=None):
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def predictSeriesA_detail(request, id, format=None):
 
-    try:
-        pred = PredictSeriesA.objects.get(pk=id)
-    except PredictSeriesA.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+#     try:
+#         pred = PredictSeriesA.objects.get(pk=id)
+#     except PredictSeriesA.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        serilizer = PredictSeriesASerializer(pred)
-        return Response(serilizer.data)
-    if request.method == 'PUT':
-        serializer = PredictSeriesASerializer(pred, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     if request.method == 'GET':
+#         serilizer = PredictSeriesASerializer(pred)
+#         return Response(serilizer.data)
+#     if request.method == 'PUT':
+#         serializer = PredictSeriesASerializer(pred, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    if request.method == 'DELETE':
-        pred.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     if request.method == 'DELETE':
+#         pred.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)

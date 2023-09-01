@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import PredictSeriesA
+# from .models import PredictSeriesA
 
 class PredictSeriesASerializer(serializers.ModelSerializer):
     class Meta:
-        model = PredictSeriesA
+        # model = PredictSeriesA
         fields = ['id','Last_funding_round_raised_amount','age_of_company','Amount_of_the_last_funding_type',
                   'Companies_Information_Level_of_Completeness','Stage_DA_Classified_Early','number_of_founders',
                   'number_of_bussiness_categories','number_of_market_countires','Female_Co_Founder',

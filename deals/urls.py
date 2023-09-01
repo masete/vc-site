@@ -1,11 +1,41 @@
 from django.urls import path
-from django.views.generic import TemplateView
-from .views import PostList, PostDetail
-
-app_name = 'deals'
+from .views import DealViewSet, DealsByCountryViewSet,DealsByYearViewSet, ValueOfDealsByCountry, quarteryValueOfDeals, ImportDataView, FilterDeals
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="deals/index.html"), name='index'),
-    path('deals/<int:pk>/', PostDetail.as_view(), name='detailcreate'),
-    path('deals/', PostList.as_view(), name='listcreate'),
+    path("deal", DealViewSet.as_view({
+        'get':'list',
+        'post':'create',
+    })),
+    #  path("deal/<str:pk>", DealViewSet.as_view({
+    #     'get':'retrieve',
+    #     'put':'update',
+    #     'delete':'destroy',
+    # })),
+       path("dealbyCountry", DealsByCountryViewSet.as_view({
+        'get':'list'
+        # 'post':'create'
+    })),
+         path("dealbyYear", DealsByYearViewSet.as_view({
+        'get':'list'
+        # 'post':'create'
+    })),
+        path("valueByCountry", ValueOfDealsByCountry.as_view({
+        'get':'list'
+        # 'post':'create'
+    })),
+        path("quartlyValue", quarteryValueOfDeals.as_view({
+        'get':'list'
+        # 'post':'create'
+    })),
+     path("filter_deals", FilterDeals.as_view({
+        'get':'list'
+        # 'post':'create'
+    })),
+        path('import/', ImportDataView.as_view(http_method_names=['post']), name='import_data'),
+        # path("import", ImportDataView.as_view({
+        # 'post':'import_data'
+        # 'post':'create'
+    # })),
+    
+    
 ]
